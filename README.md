@@ -1,2 +1,4 @@
-# LIveCode-ListProcessing
+# LiveCode-ListProcessing
 Simple list processing
+
+In progress
