@@ -8,6 +8,7 @@ on libraryStack
   MT.startTestFile "ListProcessor"
     
     MT.startTest "create 1"
+      put empty into tList
       MT.assertEqual 0, LP.create(tList, "one:1:two:2:three:3", ":")
       MT.assertEqual "one", tList["items"][1]
       MT.assertEqual 1, tList["items"][2]
@@ -16,23 +17,28 @@ on libraryStack
       MT.assertEqual "three", tList["items"][5]
       MT.assertEqual 3, tList["items"][6]
       MT.assertEqual 1, tList["index"]
+      MT.assertEqual "6", second item of extents(tList["items"])
     MT.endTest
     
     MT.startTest "create 2"
+      put empty into tList
       MT.assertEqual 0, LP.create(tList, "one", empty)
       MT.assertEqual "one", tList["items"][1]
       MT.assertEqual 1, tList["index"]
+      MT.assertEqual "1", second item of extents(tList["items"])
     MT.endTest
     
     MT.startTest "create 3"
+      put empty into tList
       MT.assertEqual 0, LP.create(tList, empty, empty)
-      MT.assertEqual empty, tList["items"][1]
+      MT.assertEqual empty, tList["items"]
       MT.assertEqual 0, tList["index"]
     MT.endTest
     
     MT.startTest "create 4"
+      put empty into tList
       MT.assertEqual 0, LP.create(tList, empty, ":")
-      MT.assertEqual empty, tList["items"][1]
+      MT.assertEqual empty, tList["items"]
       MT.assertEqual 0, tList["index"]
     MT.endTest      
            
