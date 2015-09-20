@@ -1,0 +1,35 @@
+﻿script "testListProcessor"
+
+
+on libraryStack
+
+  local tList
+
+  MT.startTestFile "ListProcessor"
+    
+    MT.startTest "create 1"
+      MT.assertEqual 0, LP.create(tList, "one:1:two:2:three:3", ":")
+      MT.assertEqual "one", tList["items"][1]
+      MT.assertEqual 1, tList["items"][2]
+      MT.assertEqual "two", tList["items"][3]
+      MT.assertEqual 2, tList["items"][4]
+      MT.assertEqual "three", tList["items"][5]
+      MT.assertEqual 3, tList["items"][6]
+      MT.assertEqual 1, tList["index"]
+    MT.endTest
+    
+    MT.startTest "create 2"
+      MT.assertEqual 0, LP.create(tList, "one", empty)
+      MT.assertEqual "one", tList["items"][1]
+      MT.assertEqual 1, tList["index"]
+    MT.endTest
+    
+    MT.startTest "create 3"
+      MT.assertEqual 0, LP.create(tList, empty, empty)
+      MT.assertEqual empty, tList["items"][1]
+      MT.assertEqual 0, tList["index"]
+    MT.endTest
+           
+  MT.endTestFile
+  
+end libraryStack

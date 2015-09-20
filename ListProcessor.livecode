@@ -1,0 +1,39 @@
+﻿script "ListProcessor"
+
+##  Simple list processing functions 
+##
+##  Author: Peter W A Wood
+##
+##  © Copyright 2015 Peter W A wood
+##
+##  This software can be freely used under the terms of the GNU General Public License 
+##  version 3. If you do not have a copy of this license, there is a copy at: 
+##    https://github.com/PeterWAWood/LiveCode-ListProcessor/blob/master/LICENSE
+
+### Handlers
+on closeStack
+end closeStack
+
+### commands and functions
+
+## LP.Create - creates a list
+##    pList           A variable in which to "put" the created list
+##    pStringList     The items to put in the list
+##    pDelimiter      The separator used in the string between items in the list
+##    returns         0 if successful
+
+function LP.create @pList, pStringList, pDelimiter
+  if pDelimiter is not empty then
+    put pStringList into pList["items"]
+    split pList["items"] by pDelimiter
+    put 1 into pList["index"]
+  else if pStringList is not empty then
+      put pStringList into pList["items"][1]
+      put 1 into pList["index"]
+  else 
+      put empty into plist["items"]
+      put 0 into plist["index"]
+  end if
+  return 0
+end LP.create
+
