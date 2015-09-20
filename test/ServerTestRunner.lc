@@ -10,7 +10,7 @@ start using stack "/Users/peter/VMShare/Code/LiveCode/LiveCode-MiniTest/MiniTest
 start using stack "../ListProcessor.livecode"
 
 MT.startTestRun
-start using stack "testListProcessor.livecode"
+start using stack "test/testListProcessor.livecode"
 stop using stack "testListProcessor"
 delete stack "testListProcessor"
 

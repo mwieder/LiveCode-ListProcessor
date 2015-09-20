@@ -23,17 +23,18 @@ end closeStack
 ##    returns         0 if successful
 
 function LP.create @pList, pStringList, pDelimiter
-  if pDelimiter is not empty then
+  if pStringList is empty then
+    put empty into plist["items"]
+    put 0 into plist["index"]
+  else if pDelimiter is not empty then
     put pStringList into pList["items"]
     split pList["items"] by pDelimiter
     put 1 into pList["index"]
-  else if pStringList is not empty then
-      put pStringList into pList["items"][1]
-      put 1 into pList["index"]
-  else 
-      put empty into plist["items"]
-      put 0 into plist["index"]
+  else
+    put pStringList into pList["items"][1]
+    put 1 into pList["index"]
   end if
   return 0
+  
 end LP.create
 

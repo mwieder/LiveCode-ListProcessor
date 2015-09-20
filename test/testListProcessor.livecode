@@ -29,6 +29,12 @@ on libraryStack
       MT.assertEqual empty, tList["items"][1]
       MT.assertEqual 0, tList["index"]
     MT.endTest
+    
+    MT.startTest "create 4"
+      MT.assertEqual 0, LP.create(tList, empty, ":")
+      MT.assertEqual empty, tList["items"][1]
+      MT.assertEqual 0, tList["index"]
+    MT.endTest      
            
   MT.endTestFile
   
