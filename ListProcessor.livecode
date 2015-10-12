@@ -7,34 +7,100 @@
 ##  © Copyright 2015 Peter W A wood
 ##
 ##  This software can be freely used under the terms of the GNU General Public License 
-##  version 3. If you do not have a copy of this license, there is a copy at: 
+##  version 3. If you do not have a copy of that license, there is a copy at: 
 ##    https://github.com/PeterWAWood/LiveCode-ListProcessor/blob/master/LICENSE
 
 ### Handlers
 on closeStack
 end closeStack
 
-### commands and functions
+### local functions
+private function inBounds? @pList, idx
+  if idx < first item of extents(pList["items"]) then return false
+  if idx > second item of extents(pList["items"]) then return false
+  return true
+end inBounds?
 
-## LP.Create - creates a list
-##    pList           A variable in which to "put" the created list
+private function list? @pList
+  if pList is empty then return false
+  if pList is not an array then return false
+  if pList["index"] is not a number then return false
+  if plist["items"] is not an array then return false
+  return true
+end list?
+
+### published commands and functions
+
+## LP.length? - returns the number of items in the list based on the current index
+##    pList         The list
+##    returns       The number of items in the list from the current index
+function LP.length? @pList
+  local tLen
+  if not list?(pList) then return 0
+  if pList["index"] = 0 then return 0
+  put second item of extents(pList["items"]) into tLen
+  return tLen - plist["index"] + 1
+end LP.length?
+
+## LP.index? - returns the value of the current index
+##    pList         The list
+##    returns       The value of the current index
+function LP.index? @pList
+  return plist["index"]
+end LP.index?
+
+## LP.makeList - creates a list
 ##    pStringList     The items to put in the list
 ##    pDelimiter      The separator used in the string between items in the list
-##    returns         0 if successful
-
-function LP.create @pList, pStringList, pDelimiter
+##    returns         A list or empty
+function LP.makeList pStringList, pDelimiter
+  local tList
   if pStringList is empty then
-    put empty into plist["items"]
-    put 0 into plist["index"]
+    put empty into tList["items"]
+    put 0 into tList["index"]
   else if pDelimiter is not empty then
-    put pStringList into pList["items"]
-    split pList["items"] by pDelimiter
-    put 1 into pList["index"]
+    put pStringList into tList["items"]
+    split tList["items"] by pDelimiter
+    put 1 into tList["index"]
   else
-    put pStringList into pList["items"][1]
-    put 1 into pList["index"]
+    put pStringList into tList["items"][1]
+    put 1 into tList["index"]
   end if
-  return 0
-  
-end LP.create
+  return tList
+end LP.makeList
 
+## LP.next - moves to the next item in the list and returns that item or empty
+##    pList         The list
+##    returns       The now first item or empty
+function LP.next @pList
+  if not list?(pList) then return empty
+  if plist["index"] < LP.length?(pList) then
+    add 1 to plist["index"]
+    return pList["items"][plist["index"]]
+  end if
+  return empty
+end LP.next
+
+## LP.peek - returns the nth item based on the current index
+##    pList         The list
+##    pPos          The position of the element requested
+##    returns       The item or empty
+function LP.peek @pList, pPos
+  local atPos
+  if not list?(pList) then return empty
+  put pList["index"] + pPos - 1 into atPos
+  if not inBounds?(pList, atPos) then return empty
+  return pList["items"][atPos]
+end LP.peek
+
+## LP.prior - moves to the prior item in the list and returns that item or empty
+##    pList         The list
+##    returns       The now first item or empty
+function LP.prior @pList
+  if not list?(pList) then return empty
+  if plist["index"] > 1 then
+    subtract 1 from plist["index"]
+    return pList["items"][plist["index"]]
+  end if
+  return empty
+end LP.prior

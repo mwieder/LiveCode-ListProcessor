@@ -1,47 +1,181 @@
 ﻿script "testListProcessor"
 
-
 on libraryStack
 
   local tList
 
   MT.startTestFile "ListProcessor"
     
-    MT.startTest "create 1"
+    MT.startTest "make 1"
+      put LP.makeList("one:1:two:2:three:3", ":") into tList
+      MT.assertEqual "one", LP.peek(tList,1)
+      MT.assertEqual 1, LP.peek(tList,2)
+      MT.assertEqual "two", LP.peek(tList,3)
+      MT.assertEqual 2, LP.peek(tList,4)
+      MT.assertEqual "three", LP.peek(tList,5)
+      MT.assertEqual 3, LP.peek(tList,6)
+      MT.assertEqual 1, LP.index?(tList)
+      MT.assertEqual 6, LP.length?(tList)
       put empty into tList
-      MT.assertEqual 0, LP.create(tList, "one:1:two:2:three:3", ":")
-      MT.assertEqual "one", tList["items"][1]
-      MT.assertEqual 1, tList["items"][2]
-      MT.assertEqual "two", tList["items"][3]
-      MT.assertEqual 2, tList["items"][4]
-      MT.assertEqual "three", tList["items"][5]
-      MT.assertEqual 3, tList["items"][6]
-      MT.assertEqual 1, tList["index"]
-      MT.assertEqual "6", second item of extents(tList["items"])
     MT.endTest
     
-    MT.startTest "create 2"
+    MT.startTest "make 2"
+      put LP.makeList("one", empty) into tList
+      MT.assertEqual "one", LP.peek(tList,1)
+      MT.assertEqual 1, LP.index?(tList)
+      MT.assertEqual 1, LP.length?(tList)
       put empty into tList
-      MT.assertEqual 0, LP.create(tList, "one", empty)
-      MT.assertEqual "one", tList["items"][1]
-      MT.assertEqual 1, tList["index"]
-      MT.assertEqual "1", second item of extents(tList["items"])
     MT.endTest
     
-    MT.startTest "create 3"
-      put empty into tList
-      MT.assertEqual 0, LP.create(tList, empty, empty)
+    MT.startTest "make 3"
+      put LP.makeList(empty, empty) into tList
       MT.assertEqual empty, tList["items"]
-      MT.assertEqual 0, tList["index"]
+      MT.assertEqual 0, LP.index?(tList)
+      put empty into tList
     MT.endTest
     
-    MT.startTest "create 4"
-      put empty into tList
-      MT.assertEqual 0, LP.create(tList, empty, ":")
+    MT.startTest "make 4"
+      put LP.makeList(empty, ":") into tList
       MT.assertEqual empty, tList["items"]
-      MT.assertEqual 0, tList["index"]
-    MT.endTest      
-           
+      MT.assertEqual 0, LP.index?(tList)
+      put empty into tList
+    MT.endTest
+    
+    MT.startTest "peek 1"
+      put LP.makeList("one:1:two:2:three:3", ":") into tList
+      MT.assertEqual "one", LP.peek(tList, 1)
+      put empty into tList
+    MT.endTest
+    
+    MT.startTest "peek 2"
+      put LP.makeList("one:1:two:2:three:3", ":") into tList
+      MT.assertEqual 1, LP.peek(tList, 2)
+      put empty into tList
+    MT.endTest
+    
+    MT.startTest "peek 3"
+      put LP.makeList("one:1:two:2:three:3", ":") into tList
+      MT.assertEqual 3, LP.peek(tList, 6)
+      put empty into tList
+    MT.endTest
+    
+    MT.startTest "peek 4"
+      put LP.makeList("one:1:two:2:three:3", ":") into tList
+      MT.assertEqual empty, LP.peek(tList, 0)
+      put empty into tList
+    MT.endTest
+    
+    MT.startTest "peek 5"
+      put LP.makeList("one:1:two:2:three:3", ":") into tList
+      MT.assertEqual empty, LP.peek(tList, 7)
+      put empty into tList
+    MT.endTest
+    
+    MT.startTest "peek 6"
+      put LP.makeList("one:1:two:2:three:3", ":") into tList
+      MT.assertEqual empty, LP.peek(tList, -1)
+      put empty into tList
+    MT.endTest
+    
+    MT.startTest "length? 1"
+      put LP.makeList("one:1:two:2:three:3", ":") into tList
+      MT.assertEqual 6, LP.length?(tList)
+      put empty into tList
+    MT.endTest
+    
+    MT.startTest "length? 2"
+      put LP.makeList(empty, empty) into tList
+      MT.assertEqual 0, LP.length?(tList)
+      put empty into tList
+    MT.endTest
+    
+    MT.startTest "length? 3"
+      put empty into tList
+      MT.assertEqual 0, LP.length?(tList)
+      put empty into tList
+    MT.endTest
+    
+    MT.startTest "length? 4"
+      put 1 into tList
+      MT.assertEqual 0, LP.length?(tList)
+      put empty into tList
+    MT.endTest
+    
+    MT.startTest "index? 1"
+      put LP.makeList("one:1:two:2:three:3", ":") into tList
+      MT.assertEqual 1, LP.index?(tList)
+      put empty into tList
+    MT.endTest
+      
+    MT.startTest "next 1"
+      put LP.makeList("one:1:two:2:three:3", ":") into tList
+      MT.assertEqual 1,LP.next(tList)
+      MT.assertEqual 5, LP.length?(tList)
+      MT.assertEqual 1, LP.peek(tList, 1)
+      MT.assertEqual "two", LP.peek(tList,2)
+      MT.assertEqual empty, LP.peek(tList, 6)
+      put empty into tList
+    MT.endTest
+    
+     MT.startTest "next 2"
+      put LP.makeList("one:1:two:2:three:3", ":") into tList
+      MT.assertEqual 1, LP.next(tList)
+      MT.assertEqual "two", LP.next(tList)
+      MT.assertEqual 4, LP.length?(tList)
+      MT.assertEqual "two", LP.peek(tList, 1)
+      MT.assertEqual "2", LP.peek(tList,2)
+      MT.assertEqual empty, LP.peek(tList, 5)
+      MT.assertEqual empty, LP.peek(tList, 6)
+      put empty into tList
+    MT.endTest
+    
+     MT.startTest "next 3"
+      put LP.makeList("one:1", ":") into tList
+      MT.assertEqual 1, LP.next(tList)
+      MT.assertEqual empty, LP.next(tList)
+      MT.assertEqual 1, LP.length?(tList)
+      MT.assertEqual 1, LP.peek(tList, 1)
+      MT.assertEqual empty, LP.peek(tList,2)
+      put empty into tList
+    MT.endTest
+    
+    MT.startTest "previous 1"
+      put LP.makeList("one:1", ":") into tList
+      MT.assertEqual 1, LP.next(tList)
+      MT.assertEqual "one", LP.prior(tList)
+      MT.assertEqual 2, LP.length?(tList)
+      MT.assertEqual "one", LP.peek(tList, 1)
+      MT.assertEqual 1, LP.peek(tList,2)
+      put empty into tList
+    MT.endTest
+    
+    MT.startTest "previous 2"
+      put LP.makeList("one:1:two:2:three:3", ":") into tList
+      MT.assertEqual 1, LP.next(tList)
+      MT.assertEqual "two", LP.next(tList)
+      MT.assertEqual 1, LP.prior(tList)
+      MT.assertEqual "one", LP.prior(tList)
+      MT.assertEqual 6, LP.length?(tList)
+      MT.assertEqual "one", LP.peek(tList, 1)
+      MT.assertEqual 1, LP.peek(tList,2)
+      MT.assertEqual empty, LP.peek(tList, 7)
+      put empty into tList
+    MT.endTest
+    
+     MT.startTest "previous 3"
+      put LP.makeList("one:1:two:2:three:3", ":") into tList
+      MT.assertEqual 1, LP.next(tList)
+      MT.assertEqual "two", LP.next(tList)
+      MT.assertEqual 1, LP.prior(tList)
+      MT.assertEqual "one", LP.prior(tList)
+      MT.assertEqual empty, LP.prior(tList)
+      MT.assertEqual 6, LP.length?(tList)
+      MT.assertEqual "one", LP.peek(tList, 1)
+      MT.assertEqual 1, LP.peek(tList,2)
+      MT.assertEqual empty, LP.peek(tList, 7)
+      put empty into tList
+    MT.endTest
+            
   MT.endTestFile
   
 end libraryStack
