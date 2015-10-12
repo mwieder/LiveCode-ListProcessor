@@ -175,6 +175,70 @@ on libraryStack
       MT.assertEqual empty, LP.peek(tList, 7)
       put empty into tList
     MT.endTest
+    
+    MT.startTest "poke 1"
+      put LP.makeList("one:1:two:2:three:3", ":") into tList
+      MT.assertEqual 1.0, LP.poke(tList, 2, 1.0)
+      MT.assertEqual 1.0, LP.peek(tList, 2)
+      put empty into tList
+    MT.endTest
+            
+    MT.startTest "poke 2"
+      put LP.makeList("one:1:two:2:three:3", ":") into tList
+      MT.assertEqual 1, LP.next(tList)
+      MT.assertEqual 2.0, LP.poke(tList, 2, 2.0)
+      MT.assertEqual 2.0, LP.peek(tList, 2)
+      put empty into tList
+    MT.endTest
+    
+    MT.startTest "poke 3"
+      put LP.makeList("one:1:two:2:three:3", ":") into tList
+      MT.assertEqual empty, LP.poke(tList, 7, 1.0)
+      put empty into tList
+    MT.endTest
+    
+    MT.startTest "poke 4"
+      put 1 into tList
+      MT.assertEqual empty, LP.poke(tList, 1, "not empty")
+      put empty into tList
+    MT.endTest
+    
+    MT.startTest "head 1"
+       put LP.makeList("one:1:two:2:three:3", ":") into tList
+       MT.assertEqual 1, LP.next(tList)
+       MT.assertEqual "two", LP.next(tList)
+       MT.assertEqual "one", LP.head(tList)
+       MT.assertEqual 1, LP.index?(tList)
+    MT.endTest
+    
+    MT.startTest "head? 1"
+       put LP.makeList("one:1:two:2:three:3", ":") into tList
+       MT.assertEqual 1, LP.next(tList)
+       MT.assertEqual "two", LP.next(tList)
+       MT.assertEqual false, LP.head?(tList)
+    MT.endTest
+    
+    MT.startTest "head? 2"
+       put LP.makeList("one:1:two:2:three:3", ":") into tList
+       MT.assertEqual true, LP.head?(tList)
+    MT.endTest
+    
+     MT.startTest "tail 1"
+       put LP.makeList("one:1:two:2:three:3", ":") into tList
+       MT.assertEqual 3, LP.tail(tList)
+       MT.assertEqual 6, LP.index?(tList)
+    MT.endTest
+    
+    MT.startTest "tail? 1"
+       put LP.makeList("one:1:two:2:three:3", ":") into tList
+       MT.assertEqual false, LP.tail?(tList)
+    MT.endTest
+    
+    MT.startTest "tail? 2"
+       put LP.makeList("one:1:two:2:three:3", ":") into tList
+       MT.assertEqual 3, LP.tail(tList)
+       MT.assertEqual true, LP.tail?(tList)
+    MT.endTest
             
   MT.endTestFile
   

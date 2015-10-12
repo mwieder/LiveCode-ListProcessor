@@ -1,13 +1,13 @@
 ﻿script "ListProcessor"
 
-##  Simple list processing functions 
+##  Simple list processing functions
 ##
 ##  Author: Peter W A Wood
 ##
-##  © Copyright 2015 Peter W A wood
+##  © Copyright 2015 Peter W A Wood
 ##
-##  This software can be freely used under the terms of the GNU General Public License 
-##  version 3. If you do not have a copy of that license, there is a copy at: 
+##  This software can be freely used under the terms of the GNU General Public License
+##  version 3. If you do not have a copy of that license, there is a copy at:
 ##    https://github.com/PeterWAWood/LiveCode-ListProcessor/blob/master/LICENSE
 
 ### Handlers
@@ -31,6 +31,33 @@ end list?
 
 ### published commands and functions
 
+## LP.head - sets the index to the first item and returns the first item
+##    pList         The list
+##    returns       The first item in the list or empty
+function LP.head @pList
+  if not list?(pList) then return empty
+  if pList["index"] = 0 then return empty
+  put 1 into pList["index"]
+  return pList["items"][pList["index"]]
+end LP.head
+
+## LP.head? - returns true if the index is set to the first item in the list
+##    pList         The list
+##    returns       True or false
+function LP.head? @pList
+  if not list?(pList) then return false
+  if pList["index"] = 0 then return false
+  if pList["index"] = 1 then return true
+  return false
+end LP.head?
+
+## LP.index? - returns the value of the current index
+##    pList         The list
+##    returns       The value of the current index
+function LP.index? @pList
+  return plist["index"]
+end LP.index?
+
 ## LP.length? - returns the number of items in the list based on the current index
 ##    pList         The list
 ##    returns       The number of items in the list from the current index
@@ -41,13 +68,6 @@ function LP.length? @pList
   put second item of extents(pList["items"]) into tLen
   return tLen - plist["index"] + 1
 end LP.length?
-
-## LP.index? - returns the value of the current index
-##    pList         The list
-##    returns       The value of the current index
-function LP.index? @pList
-  return plist["index"]
-end LP.index?
 
 ## LP.makeList - creates a list
 ##    pStringList     The items to put in the list
@@ -93,6 +113,20 @@ function LP.peek @pList, pPos
   return pList["items"][atPos]
 end LP.peek
 
+## LP.poke - puts the supplied value into the nth position based on the current index
+##    pList         The list
+##    pPos          The position of the element requested
+##    pVel          The value to be poked into the list
+##    returns       The item poked into the list or empty
+function LP.poke @pList, pPos, pVal
+  local atPos
+  if not list?(pList) then return empty
+  put pList["index"] + pPos - 1 into atPos
+  if not inBounds?(pList, atPos) then return empty
+  put pVal into pList["items"][atPos]
+  return pList["items"][atPos]
+end LP.poke
+
 ## LP.prior - moves to the prior item in the list and returns that item or empty
 ##    pList         The list
 ##    returns       The now first item or empty
@@ -104,3 +138,23 @@ function LP.prior @pList
   end if
   return empty
 end LP.prior
+
+## LP.tail - sets the index to the last item and returns the last item
+##    pList         The list
+##    returns       The last item in the list or empty
+function LP.tail @pList
+  if not list?(pList) then return empty
+  if pList["index"] = 0 then return empty
+  put LP.length?(pList) into pList["index"]
+  return pList["items"][pList["index"]]
+end LP.tail
+
+## LP.tail? - returns true if the index is set to the last item in the list
+##    pList         The list
+##    returns       True or false
+function LP.tail? @pList
+  if not list?(pList) then return false
+  if pList["index"] = 0 then return false
+  if LP.length?(pList) = 1 then return true
+  return false
+end LP.tail?
