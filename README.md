@@ -61,12 +61,13 @@ Returns the nth item based on the current index
   returns         The item or empty
 ```
 
-### LP.peek
-Returns the nth item based on the current index
+### LP.poke
+Replaces the nth item based on the current index with the supplied value
 ```
   arguments
     pList         The list
     pPos          The position of the element requested
+    pVal          The value to be poked into the list
   returns         The item or empty
 ```
   
