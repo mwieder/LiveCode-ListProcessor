@@ -8,47 +8,46 @@ The current implementation of ListProcessor uses LiveCode arrays to store a list
 
 ### LP.makeList
 This function creates a list. A variable in which to "put" the created list.
-
-  pStringList     The items to put in the list
-  
-  pDelimiter      The separator used in the string between items in the list
-  
-  returns         true if successful
-
+```
+  arguments
+    pStringList     The items to put in the list
+    pDelimiter      The separator used in the string between items in the list
+  returns           The list or empty
+```
 ### LP.length?
 Returns the number of items in the list based on the current index
-
-  pList         The list
-  
-  returns       The number of items in the list from the current index
-  
+```
+  argument
+    pList         The list
+  returns         The number of items in the list from the current index
+```
 ### LP.index?
 Returns the value of the current index
-
-  pList         The list
-  
-  returns       The value of the current index
-  
+```
+  argument
+    pList         The list
+  returns         The value of the current index
+```
 ### LP.next
 Moves to the next item in the list and returns that item or empty
-
-  pList         The list
-  
-  returns       The now first item or empty
-  
+```
+  argument
+    pList         The list
+  returns         The now first item or empty
+```
 ### LP.peek
 Returns the nth item based on the current index
-
-  pList         The list
-  
-  pPos          The position of the element requested
-  
-  returns       The item or empty
+```
+  arguments
+    pList         The list
+    pPos          The position of the element requested
+  returns         The item or empty
+```
   
 ### LP.prior
 Moves to the prior item in the list and returns that item or empty
-
-  pList         The list
-  
-  returns       The now first item or empty
-  
+```
+  argument
+    pList         The list
+  returns         The now first item or empty
+```
