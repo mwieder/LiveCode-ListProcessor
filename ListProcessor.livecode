@@ -1,13 +1,13 @@
 ﻿script "ListProcessor"
 
-##  Simple list processing functions 
+##  Simple list processing functions
 ##
 ##  Author: Peter W A Wood
 ##
 ##  © Copyright 2015 Peter W A wood
 ##
-##  This software can be freely used under the terms of the GNU General Public License 
-##  version 3. If you do not have a copy of that license, there is a copy at: 
+##  This software can be freely used under the terms of the GNU General Public License
+##  version 3. If you do not have a copy of that license, there is a copy at:
 ##    https://github.com/PeterWAWood/LiveCode-ListProcessor/blob/master/LICENSE
 
 ### Handlers
@@ -30,6 +30,20 @@ private function list? @pList
 end list?
 
 ### published commands and functions
+
+## LP.head? - returns the head of the list
+##    pList         The list
+##    returns       The top of the list stack
+function LP.head? @pList
+  return pList["items"][1]
+end LP.head?
+
+## LP.tail? - returns the tail of the list
+##    pList         The list
+##    returns       The bottom of the list stack
+function LP.tail? @pList
+  return pList["items"][LP.length?(pList)]
+end LP.tail?
 
 ## LP.length? - returns the number of items in the list based on the current index
 ##    pList         The list
