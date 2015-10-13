@@ -15,6 +15,30 @@ This function creates a list. A variable in which to "put" the created list.
   returns           The list or empty
 ```
 
+### LP.append
+Appends an item to the end of the list and returns the appended item
+```
+  arguments
+    pList         The list
+    pVal          The value
+  returns         The first item in the list or empty
+```
+
+### LP.copy - returns a copy of a list from the current index
+```
+  arguments
+    pList         The list
+  returns         A copy of the list
+```
+
+### LP.empty?
+Returns true if the list is empty
+```
+  argument
+    pList         The list
+  returns         True or false
+```
+
 ### LP.head
 Sets the index to the first item and returns the first item
 ```

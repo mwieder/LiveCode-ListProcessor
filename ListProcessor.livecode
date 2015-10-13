@@ -15,6 +15,7 @@ on closeStack
 end closeStack
 
 ### local functions
+
 private function inBounds? @pList, idx
   if idx < first item of extents(pList["items"]) then return false
   if idx > second item of extents(pList["items"]) then return false
@@ -25,11 +26,54 @@ private function list? @pList
   if pList is empty then return false
   if pList is not an array then return false
   if pList["index"] is not a number then return false
+  if pList["index"] = 0 and pList["items"] is empty then return true
   if plist["items"] is not an array then return false
   return true
 end list?
 
 ### published commands and functions
+
+## LP.append - appends an item to the end of the list and returns the appended item
+##    pList         The list
+##    pVal          The value
+##    returns       The first item in the list or empty
+function LP.append @pList, pVal
+  local tLast
+  if not list?(pList) then return empty
+  put LP.length?(pList) + 1 into tLast
+  put pVal into pList["items"][tLast]
+  if pList["index"] = 0 then put 1 into pList["index"]
+  return pList["items"][tLast]
+end LP.append
+
+## LP.copy - returns a copy of a list from the current index
+##    pList         The list
+##    returns       A copy of the list
+function LP.copy @pList
+  local tCopy
+  local tCounter
+  local tFrom
+  local tTo
+  if not list?(pList) then return empty
+  put LP.makeList(empty, empty) into tCopy
+  if LP.empty?(pList) then return tCopy
+  put LP.index?(pList) into tFrom
+  put LP.index?(pList) + LP.length?(plist) - 1 into tTo
+  repeat with tCounter = tFrom to tTo
+    put LP.append(tCopy, pList["items"][tCounter])
+  end repeat
+  put 1 into tCopy["index"]
+  return tCopy
+end LP.copy
+
+## LP.empty? - returns true if the list is empty
+##    pList         The list
+##    returns       True or false
+function LP.empty? @pList
+  if not list?(pList) then return true
+  if pList["index"] = 0 then return true
+  return false
+end LP.empty?
 
 ## LP.head - sets the index to the first item and returns the first item
 ##    pList         The list
