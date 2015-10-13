@@ -280,14 +280,35 @@ on libraryStack
       put empty into tList
     MT.endTest
     
-    MT.startTest "copy 1"
+    MT.startTest "copyToTail 1"
+      put LP.makeList("one:1:two:2:three:3", ":") into tList
+      assert LP.next(tList)
+      assert LP.next(tList)
+      put LP.copyToTail(tList) into tListCopy
+      MT.assertEqual 1, LP.index?(tListCopy)
+      MT.assertEqual 4, LP.length?(tListCopy)
+      MT.assertEqual "two", LP.peek(tListCopy, 1)
+      put empty into tList
+    MT.endTest
+
+  MT.startTest "copyToTail 2"
+      put LP.makeList(empty, empty) into tList
+      put LP.copyToTail(tList) into tListCopy
+      MT.assertEqual 0, LP.index?(tListCopy)
+      MT.assertEqual 0, LP.length?(tListCopy)
+      MT.assertEqual true, LP.empty?(tListCopy, 1)
+      put empty into tList
+  MT.endTest
+  
+  MT.startTest "copy 1"
       put LP.makeList("one:1:two:2:three:3", ":") into tList
       assert LP.next(tList)
       assert LP.next(tList)
       put LP.copy(tList) into tListCopy
+      MT.assertEqual "one", LP.head(tListCopy)
       MT.assertEqual 1, LP.index?(tListCopy)
-      MT.assertEqual 4, LP.length?(tListCopy)
-      MT.assertEqual "two", LP.peek(tListCopy, 1)
+      MT.assertEqual 6, LP.length?(tListCopy)
+      MT.assertEqual "one", LP.peek(tListCopy, 1)
       put empty into tList
     MT.endTest
 
@@ -298,8 +319,8 @@ on libraryStack
       MT.assertEqual 0, LP.length?(tListCopy)
       MT.assertEqual true, LP.empty?(tListCopy, 1)
       put empty into tList
-    MT.endTest
-             
+  MT.endTest
+                        
   MT.endTestFile
   
 end libraryStack

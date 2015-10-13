@@ -24,11 +24,18 @@ Appends an item to the end of the list and returns the appended item
   returns         The first item in the list or empty
 ```
 
-### LP.copy - returns a copy of a list from the current index
+### LP.copy - returns a copy of the complete list
 ```
   arguments
     pList         The list
   returns         A copy of the list
+```
+
+### LP.copyToTail - returns a copy of the list from the current index
+```
+  arguments
+    pList         The list
+  returns         A copy of the list from the current index
 ```
 
 ### LP.empty?
@@ -113,7 +120,7 @@ Sets the index to the last item and returns the last item
 ### LP.tail?
 Returns true if the index is set to the last item in the list
 ```
-argument
-  pList         The list
-  returns       True or false
+  argument
+    pList         The list
+  returns         True or false
 ```

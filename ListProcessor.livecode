@@ -56,6 +56,21 @@ function LP.copy @pList
   local tTo
   if not list?(pList) then return empty
   put LP.makeList(empty, empty) into tCopy
+  put pList["index"] into tCopy["index"]
+  put plist["items"] into tCopy["items"]
+  return tCopy
+end LP.copy
+
+## LP.copyToTail - returns a copy of a list from the current index
+##    pList         The list
+##    returns       A copy of the list
+function LP.copyToTail @pList
+  local tCopy
+  local tCounter
+  local tFrom
+  local tTo
+  if not list?(pList) then return empty
+  put LP.makeList(empty, empty) into tCopy
   if LP.empty?(pList) then return tCopy
   put LP.index?(pList) into tFrom
   put LP.index?(pList) + LP.length?(plist) - 1 into tTo
@@ -64,7 +79,7 @@ function LP.copy @pList
   end repeat
   put 1 into tCopy["index"]
   return tCopy
-end LP.copy
+end LP.copyToTail
 
 ## LP.empty? - returns true if the list is empty
 ##    pList         The list
