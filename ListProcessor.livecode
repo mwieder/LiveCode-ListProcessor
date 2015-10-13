@@ -60,7 +60,7 @@ function LP.copy @pList
   put LP.index?(pList) into tFrom
   put LP.index?(pList) + LP.length?(plist) - 1 into tTo
   repeat with tCounter = tFrom to tTo
-    put LP.append(tCopy, pList["items"][tCounter])
+    assert LP.append(tCopy, pList["items"][tCounter])
   end repeat
   put 1 into tCopy["index"]
   return tCopy
