@@ -38,6 +38,7 @@ Returns the previous item in the list or empty if the list is at its head
   argument
     pList         The list
   returns         The previous item in the list or empty
+```
 
 ### LP.copy
 Returns a copy of the complete list
