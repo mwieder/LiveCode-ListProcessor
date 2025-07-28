@@ -1,5 +1,7 @@
 # LiveCode-ListProcessor
 
+** ***WARNING*** ** LiveCode ListProcessor is no longer being developed or maintained.
+
 Simple list processing - first, last, next, prior, head, tail, ahead, behind, peek, poke, remove, append, insert, etc..
 
 The current implementation of ListProcessor uses LiveCode arrays to store a list and its index. The design and code have not been optimised in anyway. My first objective is to get basic list processing working and then to improve on it. 
